@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void ranking() {
+    public void ranking(View view) {
         Intent intent = new Intent(this, GameOver.class);
 
         intent.putExtra("played",Boolean.FALSE);
