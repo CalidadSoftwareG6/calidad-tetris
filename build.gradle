@@ -43,3 +43,37 @@ task clean(type: Delete) {
 }
 
 
+task gitPull(type: Exec) {
+    description 'Pulls git.'
+    commandLine "git", "pull"
+}
+
+task gitBranch() {
+    def branch = ""
+    def proc = "git rev-parse --abbrev-ref HEAD".execute()
+    proc.in.eachLine { line -> branch = line }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+    branch
+}
+
+task gitAdd(type: Exec){
+	description 'Adds the modified elements'
+    commandLine "git", "add"
+}
+
+task gitCommit(type: Exec) {
+description 'Commit elements that wasnt in the Project before'
+commandLine "git", "commit"
+
+}
+
+
+task gitPush(type: Exec) {
+	description 'Push elements'
+	commandLine "git", "push"
+}
+
+
+
+
