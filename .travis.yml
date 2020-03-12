@@ -37,6 +37,7 @@ deploy:
   overwrite: true
   on:
     branch: master
-    repo: Sebas104/calidad-tetris
+    repo: CalidadSoftwareG6/calidad-tetris
     tags: true
     rvm: 2.0.0
+
