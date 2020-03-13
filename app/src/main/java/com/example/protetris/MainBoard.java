@@ -234,7 +234,7 @@ public class MainBoard {
     }
 
     public void fastFall(Piece piece, boolean isActualPiece) {
-        if (!getShadowActualPiece().coord.equals(new Coordinates()) || !getShadowActualPiece().equals(new Coordinates())) {
+        if (!getShadowActualPiece().coord.equalsCoord(new Coordinates()) || !getShadowActualPiece().equalsCoord(new Coordinates())) {
             removePiece(piece, this.board);
             if (isActualPiece) {
                 piece.coord = piece.copyCoord(getShadowActualPiece().coord);
@@ -253,7 +253,7 @@ public class MainBoard {
             shadowActualPiece.coord = actualPiece.copyCoord(actualPiece.coord);
             moveDown(shadowActualPiece);
             addPiece(shadowActualPiece, this.board);
-            if (shadowActualPiece.coord.equals(actualPiece.coord)) {
+            if (shadowActualPiece.coord.equalsCoord(actualPiece.coord)) {
                 shadowActualPiece.coord = new Coordinates();
             }
         } else {
@@ -261,7 +261,7 @@ public class MainBoard {
             shadowRandomPiece.coord = actualPiece.copyCoord(actualPiece.coord);
             moveDown(shadowRandomPiece);
             addPiece(shadowRandomPiece, this.board);
-            if (shadowRandomPiece.coord.equals(actualPiece.coord)) {
+            if (shadowRandomPiece.coord.equalsCoord(actualPiece.coord)) {
                 shadowRandomPiece.coord = new Coordinates();
             }
         }
