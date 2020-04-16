@@ -65,6 +65,7 @@ public class MainGame extends View implements View.OnClickListener {
         this.numColor=numColor;
         startGame();
     }
+
     public void startGame() {
         timer.schedule(new TimerTask() {
             @Override
@@ -152,6 +153,7 @@ public class MainGame extends View implements View.OnClickListener {
                 }
 
                 while (true) {
+
                     if (!proTetris.getStop()) {
                         if (mainBoard.moveOneDown(randomPiece, false)) {
                             try {
@@ -275,6 +277,10 @@ public class MainGame extends View implements View.OnClickListener {
         }
     }
 
+    public void changeNextPiece(View view){
+
+    }
+
     public boolean gameOver() throws InterruptedException {
         if (this.mainBoard.checkGameOver(this.mainBoard.getActualPiece())) {
             //Mostrar game over
@@ -310,5 +316,16 @@ public class MainGame extends View implements View.OnClickListener {
             }
         }
         return true;
+    }
+
+
+    /*This getters, setters and constructor were created for testing with junit*/
+
+    public List<Piece> getPieces(){
+        return this.pieces;
+    }
+
+    public void setPieces(List<Piece> pieces){
+        this.pieces = pieces;
     }
 }

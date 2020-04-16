@@ -2,6 +2,7 @@ package com.example.protetris;
 
 
 import android.graphics.Color;
+import android.view.View;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -366,5 +367,9 @@ public class MainBoard {
             }
         }
         return firstRowsRandom;
+    }
+
+    public void changeNextPiece(View view){
+
     }
 }
