@@ -5,53 +5,59 @@ import android.graphics.Color;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class MainBoard {
 
     //Constantes y variables
     private static final int EMPTY = 0;
-    private static final int S_PIECE = 1;
-    private static final int I_PIECE = 2;
-    private static final int J_PIECE = 3;
-    private static final int O_PIECE = 4;
-    private static final int L_PIECE = 5;
-    private static final int Z_PIECE = 6;
-    private static final int T_PIECE = 7;
     private static final int SHADOW = 8;
 
-    private final int BOARD_NUM_ROWS = 20;
-    private final int BOARD_NUM_COLS = 10;
+    private ColorPieceMap colorMap = new ColorPieceMap();
 
-    private final int NUM_TYPE = 7; //Numero de diferentes piezas
-    private final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
+    private static final int BOARDNUMROWS = 20;
+    private static final int BOARDNUMCOLS = 10;
+
+    private static final int NUMTYPE = 7; //Numero de diferentes piezas
+    private static final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
+
+    private static final String FINALCOLORSTRING = "#0030272A";
 
     private Piece shadowActualPiece;
     private Piece shadowRandomPiece;
     private List<Piece> pieces = new LinkedList<>();
 
-    private int actualRows = BOARD_NUM_ROWS;
+    private int actualRows = BOARDNUMROWS;
 
-    private int board[][]; //Tablero del juego
+    private int[][] board; //Tablero del juego
 
     public MainBoard() {
         //Inicialización tablero
-        board = new int[BOARD_NUM_ROWS][BOARD_NUM_COLS];
+        board = new int[BOARDNUMROWS][BOARDNUMCOLS];
         this.resetBoard(this.board);
         //Inicialización piezas
         shadowActualPiece = new Piece(SHADOW);
         shadowRandomPiece = new Piece(SHADOW);
-        int pieceRandom1 = (int) (Math.random() * NUM_TYPE) + 1;
-        int pieceRandom2 = (int) (Math.random() * NUM_TYPE) + 1;
+
+        Random r = new Random();
+
+        int pieceRandom1 = r.nextInt(NUMTYPE)+1;//Va del 1 al 7
+        int pieceRandom2 = r.nextInt(NUMTYPE)+1;//Va del 1 al 7
+
         pieces.add(new Piece(pieceRandom1));
         pieces.add(new Piece(pieceRandom2));
+    }
+
+    public void setBoard(int [][] board){
+        this.board = board;
     }
 
     public int [][] getBoard() {
         return this.board;
     }
 
-    public int getBOARD_NUM_COLS() {
-        return this.BOARD_NUM_COLS;
+    public int getBOARDNUMCOLS() {
+        return this.BOARDNUMCOLS;
     }
 
     public int getActualRows() {
@@ -80,7 +86,7 @@ public class MainBoard {
 
     public void resetBoard(int [][] board) {
         for (int row = 0; row < actualRows; row++) {
-            for (int col = 0; col < BOARD_NUM_COLS; col++) {
+            for (int col = 0; col < BOARDNUMCOLS; col++) {
                 board[row][col] = 0; //Inicializa el tablero
             }
         }
@@ -100,116 +106,57 @@ public class MainBoard {
 
     //Para dibujar los bloques en el tablero
     public int drawBlocks(int row, int col,int num) {
-        switch (num){
-            case 0: {
-                switch (board[row][col]) {
-                    case EMPTY:
-                        return Color.parseColor("#0030272A");
-                    case S_PIECE:
-                        return Color.parseColor("#0087FC");
-                    case I_PIECE:
-                        return Color.parseColor("#FD2929");
-                    case J_PIECE:
-                        return Color.parseColor("#9C00E2");
-                    case O_PIECE:
-                        return Color.parseColor("#00D1FE");
-                    case L_PIECE:
-                        return Color.parseColor("#FDD401");
-                    case Z_PIECE:
-                        return Color.parseColor("#FD6801");
-                    case T_PIECE:
-                        return Color.parseColor("#03DF04");
-                    case SHADOW:
-                        return Color.parseColor("#26F2F2F2");
-                }
-                break;
-            }
-            case 1: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#0087FC");
-            }
-            case 2: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#FD2929");
-            }
-            case 3: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#00D1FE");
-            }
-            case 4: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#9C00E2");
-            }
-            case 5: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#FDD401");
-            }
-            case 6: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#FD6801");
-            }
-            case 7: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#03DF04");
-            }
+
+        if (num == 0){
+            return colorMap.pieceToColor(board[row][col]);
+        }else{
+            return drawBlocksNormalCase(row,col,colorMap.pieceToString(num));
         }
-        return Color.parseColor("#0030272A");
     }
+
+
+    private int drawBlocksNormalCase(int row,int col,String color){
+        if (board[row][col] == EMPTY) {
+            return Color.parseColor(this.FINALCOLORSTRING);
+        } else if (board[row][col] == SHADOW) {
+            return Color.parseColor("#26F2F2F2");
+        }
+        return Color.parseColor(color);
+    }
+
 
     public int removeCompleteLines(Piece randomPiece) {
         int linesToRemove = 0;
 
         for (int row = 0; row < actualRows; row++) {
             int rowComplete = 0;
-            for (int col = 0; col < BOARD_NUM_COLS; col++) {
+            for (int col = 0; col < BOARDNUMCOLS; col++) {
                 if (this.board[row][col] > EMPTY && this.board[row][col] != SHADOW) {
                     rowComplete++;
                 }
             }
-            if (rowComplete == BOARD_NUM_COLS) {
-                for (int row1 = row; row1 > 0; row1--) {
-                    for (int col1 = 0; col1 < BOARD_NUM_COLS; col1++) {
-                        this.board[row1][col1] = this.board[row1 - 1][col1];
-                    }
-                }
-                //Tenemos que actualizar las coordenadas de la pieza aleatoria en caso de que esté en el tablero
-                if (randomPiece != null) {
-                    randomPiece.moveCoord(1, 0);
-                }
+            linesToRemove = removeCompleteLinesAux(rowComplete,row,randomPiece,linesToRemove);
+        }
+        return linesToRemove;
+    }
 
-                //En caso de que se haga fila con la pieza random, actualizar la posicion de la pieza actual
-                this.getActualPiece().moveCoord(1,0);
 
-                linesToRemove++;
+    public int removeCompleteLinesAux(int rowComplete,int row,Piece randomPiece,int linesToRemove){
+        if (rowComplete == BOARDNUMCOLS) {
+            for (int row1 = row; row1 > 0; row1--) {
+                for (int col1 = 0; col1 < BOARDNUMCOLS; col1++) {
+                    this.board[row1][col1] = this.board[row1 - 1][col1];
+                }
             }
+            //Tenemos que actualizar las coordenadas de la pieza aleatoria en caso de que esté en el tablero
+            if (randomPiece != null) {
+                randomPiece.moveCoord(1, 0);
+            }
+
+            //En caso de que se haga fila con la pieza random, actualizar la posicion de la pieza actual
+            this.getActualPiece().moveCoord(1,0);
+
+            linesToRemove++;
         }
         return linesToRemove;
     }
@@ -287,7 +234,7 @@ public class MainBoard {
     }
 
     public void fastFall(Piece piece, boolean isActualPiece) {
-        if (!getShadowActualPiece().coord.equals(new Coordinates()) || !getShadowActualPiece().equals(new Coordinates())) {
+        if (!getShadowActualPiece().coord.equalsCoord(new Coordinates()) || !getShadowActualPiece().equalsCoord(new Coordinates())) {
             removePiece(piece, this.board);
             if (isActualPiece) {
                 piece.coord = piece.copyCoord(getShadowActualPiece().coord);
@@ -306,7 +253,7 @@ public class MainBoard {
             shadowActualPiece.coord = actualPiece.copyCoord(actualPiece.coord);
             moveDown(shadowActualPiece);
             addPiece(shadowActualPiece, this.board);
-            if (shadowActualPiece.coord.equals(actualPiece.coord)) {
+            if (shadowActualPiece.coord.equalsCoord(actualPiece.coord)) {
                 shadowActualPiece.coord = new Coordinates();
             }
         } else {
@@ -314,7 +261,7 @@ public class MainBoard {
             shadowRandomPiece.coord = actualPiece.copyCoord(actualPiece.coord);
             moveDown(shadowRandomPiece);
             addPiece(shadowRandomPiece, this.board);
-            if (shadowRandomPiece.coord.equals(actualPiece.coord)) {
+            if (shadowRandomPiece.coord.equalsCoord(actualPiece.coord)) {
                 shadowRandomPiece.coord = new Coordinates();
             }
         }
@@ -331,44 +278,11 @@ public class MainBoard {
         Coordinates newXY = actualPiece.copyCoord(actualPiece.coord);
         newXY.updateCoord(2, 0);
 
-        //Pieza en la fila 0 del tablero
-        if (actualPiece.getCoord1().x == 0 || actualPiece.getCoord2().x == 0 || actualPiece.getCoord3().x == 0 || actualPiece.getCoord4().x == 0) {
-            if (!actualPiece.checkCollision(this.board, newXY)) {
-                actualPiece.moveCoord(1,0);
-            }
-        }
+        firstRows = reduceBoardAux1(actualPiece,firstRows,newXY);
 
-        //Pieza en la fila 1 del tablero
-        if (actualPiece.getCoord1().x == 1 || actualPiece.getCoord2().x == 1 || actualPiece.getCoord3().x == 1 || actualPiece.getCoord4().x == 1) {
-            if (!actualPiece.checkCollision(this.board, newXY)) {
-                actualPiece.moveCoord(1,0);
-                firstRows = true;
-            }
-        }
 
-        //Hacemos lo mismo para la pieza random en caso de que se encuentre en el tablero
-        if (randomPiece != null) {
+        firstRowsRandom = reduceBoardAux2(randomPiece,firstRowsRandom,actualPiece);
 
-            this.removePiece(randomPiece, this.board);
-
-            Coordinates randomXY = randomPiece.copyCoord(randomPiece.coord);
-            randomXY.updateCoord(2, 0);
-
-            //Pieza en la fila 0 del tablero
-            if (randomPiece.getCoord1().x == 0 || randomPiece.getCoord2().x == 0 || randomPiece.getCoord3().x == 0 || randomPiece.getCoord4().x == 0) {
-                if (!randomPiece.checkCollision(this.board, randomXY)) {
-                    randomPiece.moveCoord(1,0);
-                }
-            }
-
-            //Pieza en la fila 1 del tablero
-            if (randomPiece.getCoord1().x == 1 || randomPiece.getCoord2().x == 1 || randomPiece.getCoord3().x == 1 || randomPiece.getCoord4().x == 1) {
-                if (!actualPiece.checkCollision(this.board, randomXY)) {
-                    randomPiece.moveCoord(1,0);
-                    firstRowsRandom = true;
-                }
-            }
-        }
 
         shadowActualPiece.coord = new Coordinates();
         shadowRandomPiece.coord = new Coordinates();
@@ -377,7 +291,7 @@ public class MainBoard {
         this.actualRows = this.actualRows - 2;
 
         //Proceso para actualizar el tablero con dos filas menos
-        int [][] newBoard = new int[actualRows][BOARD_NUM_COLS];
+        int [][] newBoard = new int[actualRows][BOARDNUMCOLS];
 
         for (int row = 2; row < this.board.length; row++) {
             System.arraycopy(this.board[row], 0, newBoard[row - 2], 0,this.board[row].length);
@@ -411,5 +325,46 @@ public class MainBoard {
             this.moveOneDown(randomPiece, false);
         }
 
+    }
+
+
+    public boolean reduceBoardAux1(Piece actualPiece,Boolean firstRows,Coordinates newXY){
+        //Pieza en la fila 0 del tablero
+        if (actualPiece.getCoord1().x == 0 || actualPiece.getCoord2().x == 0 || actualPiece.getCoord3().x == 0 || actualPiece.getCoord4().x == 0 && !actualPiece.checkCollision(this.board, newXY)) {
+            actualPiece.moveCoord(1,0);
+        }
+
+        //Pieza en la fila 1 del tablero
+        if (actualPiece.getCoord1().x == 1 || actualPiece.getCoord2().x == 1 || actualPiece.getCoord3().x == 1 || actualPiece.getCoord4().x == 1 && !actualPiece.checkCollision(this.board, newXY)) {
+            actualPiece.moveCoord(1,0);
+            firstRows = true;
+        }
+
+        return firstRows;
+    }
+
+
+    public boolean reduceBoardAux2(Piece randomPiece, Boolean firstRowsRandom,Piece actualPiece){
+        //Hacemos lo mismo para la pieza random en caso de que se encuentre en el tablero
+        if (randomPiece != null) {
+
+            this.removePiece(randomPiece, this.board);
+
+            Coordinates randomXY = randomPiece.copyCoord(randomPiece.coord);
+            randomXY.updateCoord(2, 0);
+
+            //Pieza en la fila 0 del tablero
+            if (randomPiece.getCoord1().x == 0 || randomPiece.getCoord2().x == 0 || randomPiece.getCoord3().x == 0 || randomPiece.getCoord4().x == 0 && !randomPiece.checkCollision(this.board, randomXY)) {
+
+                randomPiece.moveCoord(1,0);
+            }
+
+            //Pieza en la fila 1 del tablero
+            if (randomPiece.getCoord1().x == 1 || randomPiece.getCoord2().x == 1 || randomPiece.getCoord3().x == 1 || randomPiece.getCoord4().x == 1 && !actualPiece.checkCollision(this.board, randomXY)) {
+                randomPiece.moveCoord(1,0);
+                firstRowsRandom = true;
+            }
+        }
+        return firstRowsRandom;
     }
 }

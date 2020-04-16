@@ -73,3 +73,24 @@ task gitPush(type: Exec) {
     description 'Push elements'
     commandLine "git", "push"
 }
+
+task gitAdd(type: Exec){
+	description 'Adds the modified elements'
+    commandLine "git", "add"
+}
+
+task gitCommit(type: Exec) {
+description 'Commit elements that wasnt in the Project before'
+commandLine "git", "commit"
+
+}
+
+
+task gitPush(type: Exec) {
+	description 'Push elements'
+	commandLine "git", "push"
+}
+
+
+
+
