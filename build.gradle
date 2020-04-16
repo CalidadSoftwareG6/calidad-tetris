@@ -74,7 +74,7 @@ task gitPush(type: Exec) {
     commandLine "git", "push"
 }
 
-task gitAdd(type: Exec){
+/*task gitAdd(type: Exec){
 	description 'Adds the modified elements'
     commandLine "git", "add"
 }
@@ -89,7 +89,7 @@ commandLine "git", "commit"
 task gitPush(type: Exec) {
 	description 'Push elements'
 	commandLine "git", "push"
-}
+}*/
 
 
 
