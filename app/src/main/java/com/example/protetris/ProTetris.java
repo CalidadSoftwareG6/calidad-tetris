@@ -21,6 +21,8 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
     private ImageView downButton;
     private TextView actualPoints;
 
+    private RelativeLayout nextPiece;
+    private TextView changePieceIndicator;
 
 
     private TextView actualCombo;
@@ -54,7 +56,9 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
         Bundle datos = this.getIntent().getExtras();
         this.colornum = datos.getInt("COLORKEY");
 
-        RelativeLayout nextPiece = findViewById(R.id.pieceView);
+        this.nextPiece = findViewById(R.id.pieceView);
+        this.changePieceIndicator = findViewById(R.id.changePieceIndicator);
+
         this.upcomingPiece = new UpcomingPiece(this, mainBoard,this.colornum, nextPiece);
         nextPiece.addView(upcomingPiece);
 
@@ -78,6 +82,9 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
         });
     }
 
+    public RelativeLayout getNextPiece(){
+        return this.nextPiece;
+    }
 
     public ImageView getLeftButton() {
         return leftButton;
@@ -104,6 +111,13 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
     public boolean getStop() {
         return stop;
     }
+
+    public TextView getChangePieceIndicator(){
+        return this.changePieceIndicator;
+    }
+
+
+
 
     public void setStop(boolean stop) {
         this.stop = stop;
@@ -147,4 +161,5 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
             e.printStackTrace();
         }
     }
+
 }

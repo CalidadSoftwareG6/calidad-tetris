@@ -25,7 +25,8 @@
         app:layout_constraintBottom_toTopOf="@+id/rotateButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tetrisBoard"
-        app:layout_constraintTop_toBottomOf="@+id/pieceView" />
+        app:layout_constraintTop_toBottomOf="@+id/pieceView"
+        android:clickable="true"/>
 
     <ImageView
         android:id="@+id/rotateButton"
@@ -89,6 +90,19 @@
         app:layout_constraintVertical_bias="0.22000003" />
 
     <TextView
+        android:id="@+id/changePieceIndicator"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/colorAccent"
+        android:clickable="false"
+        app:layout_constraintBottom_toTopOf="@+id/pieceView"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+
+
+    <TextView
         android:id="@+id/textScore"
         android:layout_width="37dp"
         android:layout_height="29dp"
@@ -137,16 +151,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-
-        <Button
-            android:id="@+id/changePieceButton"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:visibility="invisible"/>
-
-    </RelativeLayout>
+        app:layout_constraintVertical_bias="0.0" />
 
 
 

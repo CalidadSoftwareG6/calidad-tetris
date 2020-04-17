@@ -369,7 +369,12 @@ public class MainBoard {
         return firstRowsRandom;
     }
 
-    public void changeNextPiece(View view){
+    public void changeNextPiece(boolean check){
+        if(check && this.pieces.size() == 2){
 
+            this.pieces.remove(1);
+            this.pieces.add(1,new Piece((int) (Math.random() * 7) + 1));
+
+        }
     }
 }
