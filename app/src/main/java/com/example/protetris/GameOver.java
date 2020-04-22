@@ -1,5 +1,6 @@
 package com.example.protetris;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -26,6 +28,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 class Elements {
@@ -33,8 +37,8 @@ class Elements {
     String name;
 
     public Elements(int s, String st){
-        score = s;
-        name = st;
+        this.score = s;
+        this.name = st;
     }
 }
 
@@ -78,12 +82,9 @@ public class GameOver extends AppCompatActivity {
     public static final String FIRST5 = "Nombre4";
     public static final String SECOND5 = "Puntuacion4";
 
-    PriorityQueue<Elements> pqueue = new PriorityQueue<>(6, new Comparator<Elements>() {
-        @Override
-        public int compare(Elements o1, Elements o2) {
-            return o2.score - o1.score;
-        }
-    });
+
+
+    LinkedList<Elements> pqueue = new LinkedList<Elements>();
 
 
     @Override
@@ -95,7 +96,7 @@ public class GameOver extends AppCompatActivity {
 
         boolean played = getIntent().getBooleanExtra("played",false);
 
-        if(!played) {
+        if(played) {
             points = getIntent().getIntExtra("score", points);
             color = getIntent().getIntExtra(COLOR_KEY, color);
         }
@@ -254,19 +255,19 @@ public class GameOver extends AppCompatActivity {
 
     private void save(String data, int data2, String key1, String key2) {
         SharedPreferences Sh = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor Edit = Sh.edit();
+        SharedPreferences.Editor edit = Sh.edit();
 
-        Edit.putString(key1, data);
-        Edit.putInt(key2, data2);
-        Edit.apply();
+        edit.putString(key1, data);
+        edit.putInt(key2, data2);
+        edit.apply();
     }
 
     private void resetScores() {
-        save("...", 0, FIRST, SECOND);
-        save("...", 0, FIRST2, SECOND2);
-        save("...", 0, FIRST3, SECOND3);
-        save("...", 0, FIRST4, SECOND4);
-        save("...", 0, FIRST5, SECOND5);
+        save("...", -1, FIRST, SECOND);
+        save("...", -1, FIRST2, SECOND2);
+        save("...", -1, FIRST3, SECOND3);
+        save("...", -1, FIRST4, SECOND4);
+        save("...", -1, FIRST5, SECOND5);
         loadScores();
         Toast.makeText(getBaseContext(),"Changes saved", Toast.LENGTH_SHORT).show();
     }
@@ -281,15 +282,24 @@ public class GameOver extends AppCompatActivity {
         loadScores();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void SortScores() {
         if (!sent) {
             sent = true;
             pqueue.add(new Elements(points, edtx.getText().toString()));
-            Elements aux;
 
-            for (int n = 0; n < 5; n++) {
-                aux = pqueue.poll();
+            pqueue.sort(new Comparator<Elements>() {
+                @Override
+                public int compare(Elements o1, Elements o2) {
+                    return Integer.compare(o2.score,o1.score);
+                }
+            });
+
+            int n = 0;
+
+            for(Elements aux: pqueue){
                 save(aux.name, aux.score, FIRSTAUX + n, SECONDAUX + n);
+                n++;
             }
 
             update(txv1, loadSt(FIRST), loadInt(SECOND));
@@ -322,8 +332,18 @@ public class GameOver extends AppCompatActivity {
         return Sh.getInt(key, 0);
     }
 
+    private long loadLong(String key){
+        SharedPreferences Sh = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        return Sh.getLong(key,0);
+    }
+
     private void update (TextView Txv1, String d1, int d2) {
-        Txv1.setText(d1+": "+ d2 +" puntos");
+        if(d1.equals("...")){
+            Txv1.setText(d1+": "+ 0 +" puntos");
+        }
+        else{
+            Txv1.setText(d1+": "+ d2 +" puntos");
+        }
     }
 
     @Override
