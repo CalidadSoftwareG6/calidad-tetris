@@ -29,8 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
 
 class Elements {
     int score;
@@ -125,14 +123,15 @@ public class GameOver extends AppCompatActivity {
         btnMenu = findViewById(R.id.button6);
         btnExit = findViewById(R.id.button7);
         btnClose = findViewById(R.id.buttonClose);
-        InitScores();
+        initScores();
         btnSend.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 if (!sent) {
                     takePhoto();
                 }
-                SortScores();
+                sortScores();
                 edtx.setEnabled(false);
             }
         });
@@ -272,7 +271,7 @@ public class GameOver extends AppCompatActivity {
         Toast.makeText(getBaseContext(),"Changes saved", Toast.LENGTH_SHORT).show();
     }
 
-    private void InitScores() {
+    private void initScores() {
         pqueue.add(new Elements(loadInt(SECOND),loadSt(FIRST)));
         pqueue.add(new Elements(loadInt(SECOND2),loadSt(FIRST2)));
         pqueue.add(new Elements(loadInt(SECOND3),loadSt(FIRST3)));
@@ -283,7 +282,7 @@ public class GameOver extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void SortScores() {
+    private void sortScores() {
         if (!sent) {
             sent = true;
             pqueue.add(new Elements(points, edtx.getText().toString()));
@@ -294,6 +293,10 @@ public class GameOver extends AppCompatActivity {
                     return Integer.compare(o2.score,o1.score);
                 }
             });
+
+            if(pqueue.size()>6){
+                pqueue.removeLast();
+            }
 
             int n = 0;
 
