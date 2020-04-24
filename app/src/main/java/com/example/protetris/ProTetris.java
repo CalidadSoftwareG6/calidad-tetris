@@ -24,6 +24,9 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
     private RelativeLayout nextPiece;
     private TextView changePieceIndicator;
 
+    private ImageView changeSong;
+    private boolean musicEnabled;
+
 
     private TextView actualCombo;
     private boolean stop;
@@ -40,9 +43,11 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_tetris);
+
         sound = (int) Math.floor(Math.random() * sounds.length);
         this.media = MediaPlayer.create(this,sounds[sound]);
         this.media.setOnCompletionListener(this);
+
         this.mainBoard = new MainBoard();
 
         this.rotateButton = findViewById(R.id.rotateButton);
@@ -55,6 +60,7 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
         this.stop = true;
         Bundle datos = this.getIntent().getExtras();
         this.colornum = datos.getInt("COLORKEY");
+        this.musicEnabled = datos.getBoolean("MUSIC");
 
         this.nextPiece = findViewById(R.id.pieceView);
         this.changePieceIndicator = findViewById(R.id.changePieceIndicator);
@@ -66,21 +72,42 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
         RelativeLayout gameBoard = findViewById(R.id.tetrisBoard);
         gameBoard.addView(this.game);
 
+
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (startButton.getText().equals("Start") || startButton.getText().equals("Resume")) {
                     startButton.setText("Pause");
-                    media.start();
                     stop = false;
+
+                    if(musicEnabled){
+                        media.start();
+                    }
                 } else if (startButton.getText().equals("Pause")){
                     startButton.setText("Resume");
-                    media.stop();
                     stop = true;
+
+                    if(musicEnabled){
+                        media.pause();
+                    }
+                }
+            }
+        });
+
+
+        this.changeSong.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if(musicEnabled) {
+                    media.stop();
+                    media.start();
                 }
             }
         });
     }
+
 
     public RelativeLayout getNextPiece(){
         return this.nextPiece;

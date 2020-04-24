@@ -19,6 +19,9 @@ public class MainColor extends AppCompatActivity {
     private Button blue2Button;
     private Button orangeButton;
     private Button multicolorButton;
+    private Button enableMusic;
+
+    private boolean music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class MainColor extends AppCompatActivity {
         orangeButton = findViewById(R.id.orange_button);
         purpleButton = findViewById(R.id.purple_button);
         multicolorButton = findViewById(R.id.multicolor_button);
+        enableMusic = findViewById(R.id.enableMusic);
+        enableMusic.setText("Music ON");
+        music = Boolean.TRUE;
 
         greenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,11 +119,25 @@ public class MainColor extends AppCompatActivity {
                 toast.show();
             }
         });
+        enableMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(enableMusic.getText().equals("Music ON")){
+                    music = Boolean.FALSE;
+                    enableMusic.setText("Music OFF");
+                }
+                else{
+                    music = Boolean.TRUE;
+                    enableMusic.setText("Music ON");
+                }
+            }
+        });
     }
 
     private void selectColor(int colorNumber) {
         Intent myIntent = new Intent(MainColor.this, ProTetris.class);
         myIntent.putExtra("COLORKEY", colorNumber); //Parametros opcionales
+        myIntent.putExtra("MUSIC",this.music);
         startActivity(myIntent);
         MainColor.this.finish();
     }
