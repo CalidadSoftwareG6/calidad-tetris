@@ -23,6 +23,7 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
 
     private RelativeLayout nextPiece;
     private TextView changePieceIndicator;
+    private ImageView changeSong;
 
 
     private TextView actualCombo;
@@ -36,6 +37,7 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
     private int [] sounds = {R.raw.billie,R.raw.breakfree,R.raw.gonnalive,R.raw.high,R.raw.guns,R.raw.eury,R.raw.carro};
     private int sound;
     private int colornum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,7 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
 
         this.nextPiece = findViewById(R.id.pieceView);
         this.changePieceIndicator = findViewById(R.id.changePieceIndicator);
+        this.changeSong = findViewById(R.id.changeSong);
 
         this.upcomingPiece = new UpcomingPiece(this, mainBoard,this.colornum, nextPiece);
         nextPiece.addView(upcomingPiece);
@@ -75,9 +78,18 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
                     stop = false;
                 } else if (startButton.getText().equals("Pause")){
                     startButton.setText("Resume");
-                    media.stop();
+                    media.pause();
                     stop = true;
                 }
+            }
+        });
+
+        this.changeSong.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                media.stop();
+                media.start();
             }
         });
     }
