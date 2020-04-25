@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -80,6 +81,8 @@ public class GameOver extends AppCompatActivity {
     public static final String FIRST5 = "Nombre4";
     public static final String SECOND5 = "Puntuacion4";
 
+    private MediaPlayer media;
+    private boolean played;
 
 
     LinkedList<Elements> pqueue = new LinkedList<Elements>();
@@ -92,11 +95,14 @@ public class GameOver extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
 
-        boolean played = getIntent().getBooleanExtra("played",false);
+        this.played = getIntent().getBooleanExtra("played",false);
 
-        if(played) {
+        if(this.played) {
             points = getIntent().getIntExtra("score", points);
             color = getIntent().getIntExtra(COLOR_KEY, color);
+
+            this.media = MediaPlayer.create(this,R.raw.astronomia);
+            this.media.start();
         }
 
 
@@ -109,7 +115,7 @@ public class GameOver extends AppCompatActivity {
         edtx = findViewById(R.id.Edit1);
         btnSend = findViewById(R.id.button2);
 
-        if(!played) {
+        if(!this.played) {
             points = getIntent().getIntExtra("score", points);
             color = getIntent().getIntExtra(COLOR_KEY, color);
 
@@ -128,6 +134,9 @@ public class GameOver extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
+
+                media.stop();
+
                 if (!sent) {
                     takePhoto();
                 }
@@ -155,6 +164,8 @@ public class GameOver extends AppCompatActivity {
                 btnReset.setVisibility(View.VISIBLE);
             }
         });
+
+
     }
 
     @Override
