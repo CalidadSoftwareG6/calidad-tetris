@@ -134,9 +134,6 @@ public class GameOver extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-
-                media.stop();
-
                 if (!sent) {
                     takePhoto();
                 }
@@ -362,6 +359,8 @@ public class GameOver extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        this.media.stop();
 
         if (points < 250) {
             super.onBackPressed();
