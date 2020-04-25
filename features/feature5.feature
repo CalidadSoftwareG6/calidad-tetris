@@ -1,7 +1,12 @@
-Feature: Que la velocidad aumente segun avanza el tiempo en la partida
-As a jugador, I want to la velocidad se incremente segun avance el tiempo en la partida, Because me gustan los retos.
+Feature: Quiero que haya un modo de juego secreto que te aumenta al doble la velocidad de bajada de la pieza.
+As a jugador, I want tener un modo de juego secreto que duplique la velocidad de bajada, Because me gustan los retos.
 
-Scenario:
-Given el jugador comienza una partida con una velocidad de caida "1" de las piezas normal
-When el jugador lleva jugando un rato una partida
-Then la velocidad de caida de la pieza aumenta "2"
+Scenario: partida en modo normal
+Given el jugador selecciona el modo de juego normal "0"
+When el jugador comienza la partida
+Then la velocidad de caida de la pieza es de "1000" milisegundos
+
+Scenario: partida en el modo secreto
+Given el jugador selecciona el modo de juego secreto "1"
+When el jugador comienza la partida
+Then la velocidad de caida de la pieza es de "500" milisegundos

@@ -48,7 +48,9 @@ public class MainGame extends View implements View.OnClickListener {
         this.timer = new Timer();
         this.proTetris = (ProTetris) context;
         this.upcomingPiece = upcomingPiece;
-        this.timerPeriod = 1000; //La pieza baja cada segundo
+
+        this.timerPeriod = proTetris.getTimePeriod();
+
         this.cont = 0;
         this.pickRandomPiece = false;
         this.score = 0;

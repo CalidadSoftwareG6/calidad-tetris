@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainColor extends AppCompatActivity {
+    private ImageView pesadeloMode;
+
     private Button redButton;
     private Button blueButton;
     private Button yellowButton;
@@ -22,11 +24,14 @@ public class MainColor extends AppCompatActivity {
     private Button enableMusic;
 
     private boolean music;
+    private int timer = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_color);
+
+        pesadeloMode = findViewById(R.id.imageView);
 
         redButton = findViewById(R.id.red_button);
         blueButton = findViewById(R.id.blue_button);
@@ -37,8 +42,10 @@ public class MainColor extends AppCompatActivity {
         purpleButton = findViewById(R.id.purple_button);
         multicolorButton = findViewById(R.id.multicolor_button);
         enableMusic = findViewById(R.id.enableMusic);
+
         enableMusic.setText("Music ON");
         music = Boolean.TRUE;
+
 
         greenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,12 +139,23 @@ public class MainColor extends AppCompatActivity {
                 }
             }
         });
+        pesadeloMode.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                timer = 500;
+                selectColor((int) (Math.random() * 7) + 1);
+            }
+        });
     }
 
     private void selectColor(int colorNumber) {
+
+        System.out.println(this.timer);
+
         Intent myIntent = new Intent(MainColor.this, ProTetris.class);
         myIntent.putExtra("COLORKEY", colorNumber); //Parametros opcionales
         myIntent.putExtra("MUSIC",this.music);
+        myIntent.putExtra("TIMER",timer);
         startActivity(myIntent);
         MainColor.this.finish();
     }

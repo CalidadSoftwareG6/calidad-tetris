@@ -1,26 +1,23 @@
-Given("una puntuacion {string}") do |entrada|
+Given("partida perdida {string}") do |entrada|
   @entrada = entrada
 end
 
-When("la partida se acaba") do
+When("se abre el ranking") do
   @salida = eval(@entrada).to_s
 end
 
-Then("la aplicacion se cierra {string} porque no he llegado a los {string} puntos") do |salida_esperada1, puntuacion_requerida1|
+Then("la musica {string}") do |salida_esperada|
+  
+  if @salida == 0 then
+	salida_esperada == 0	
+  else
+	salida_esperada == 1
+  end
 
-	if puntuacion_requerida1 <= @entrada then
-		salida_esperada1 = true
-	else
-		salida_esperada1 = false
-	end
 end
 
-Then("la aplicacion no se cierra {string} porque he llegado a los {string} puntos") do |salida_esperada2, puntuacion_requerida2|
-  	
-	if puntuacion_requerida2 > @entrada then
-		salida_esperada2 = false
-	else
-		salida_esperada2 = true
-	end
+Given("partida no perdida {string}") do |entrada|
+  @entrada = entrada
 end
+
 

@@ -1,12 +1,21 @@
-Given("el jugador comienza una partida con una velocidad de caida {string} de las piezas normal") do |entrada|
+Given("el jugador selecciona el modo de juego normal {string}") do |entrada|
   @entrada = entrada
 end
 
-When("el jugador lleva jugando un rato una partida") do
+When("el jugador comienza la partida") do
   @salida = eval(@entrada).to_s
 end
 
-Then("la velocidad de caida de la pieza aumenta {string}") do |salida_esperada|
-  @salida > salida_esperada
+Then("la velocidad de caida de la pieza es de {string} milisegundos") do |salida_esperada|
+
+  if @salida == 0 then
+        salida_esperada == 1000
+  else
+        salida_esperada == 500
+  end
+
 end
 
+Given("el jugador selecciona el modo de juego secreto {string}") do |entrada|
+  @entrada = entrada
+end

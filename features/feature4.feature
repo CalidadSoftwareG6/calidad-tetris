@@ -1,5 +1,5 @@
 Feature: Quiero poder pausar la musica cuando quiera.
-As jugador, I want, elegir jugar con musica o sin musica, Because quiero apagarla cuando quiera silencio.
+As jugador, I want elegir jugar con musica o sin musica, Because quiero apagarla cuando quiera silencio.
   
 Scenario: pantalla de seleccion de colores  
 Given la musica esta apagada "0"

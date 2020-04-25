@@ -26,7 +26,7 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
 
     private ImageView changeSong;
     private boolean musicEnabled;
-
+    private int timer;
 
     private TextView actualCombo;
     private boolean stop;
@@ -62,6 +62,7 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
         Bundle datos = this.getIntent().getExtras();
         this.colornum = datos.getInt("COLORKEY");
         this.musicEnabled = datos.getBoolean("MUSIC");
+        this.timer = datos.getInt("TIMER");
 
         this.nextPiece = findViewById(R.id.pieceView);
         this.changePieceIndicator = findViewById(R.id.changePieceIndicator);
@@ -188,6 +189,10 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getTimePeriod(){
+        return this.timer;
     }
 
 }
