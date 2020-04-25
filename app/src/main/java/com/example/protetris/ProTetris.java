@@ -57,6 +57,7 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
         this.actualPoints =  findViewById(R.id.textScore);
         this.actualCombo=findViewById(R.id.textCombo);
         this.startButton = findViewById(R.id.start);
+        this.changeSong = findViewById(R.id.changeMusic);
         this.stop = true;
         Bundle datos = this.getIntent().getExtras();
         this.colornum = datos.getInt("COLORKEY");
