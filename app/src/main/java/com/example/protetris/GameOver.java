@@ -306,6 +306,12 @@ public class GameOver extends AppCompatActivity {
                 pqueue.removeLast();
             }
 
+            System.out.println("Objeto debajo");
+            System.out.println(pqueue.get(0).name);
+            System.out.println(pqueue.get(0).score);
+            System.out.println(pqueue.get(5).name);
+            System.out.println(pqueue.get(5).score);
+
             int n = 0;
 
             for(Elements aux: pqueue){
@@ -360,7 +366,9 @@ public class GameOver extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        this.media.stop();
+        if(this.played){
+            this.media.stop();
+        }
 
         if (points < 250) {
             super.onBackPressed();
