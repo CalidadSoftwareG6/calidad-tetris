@@ -24,7 +24,7 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.login", "f87126cc2281106e1e110c19a99e1d5c9c70c03b"
         property "sonar.java.coveragePlugin", "jacoco"
-       // property "sonar.tests", "app/src/androidTest/java/com/example/protetris"
+        // property "sonar.tests", "app/src/androidTest/java/com/example/protetris"
         property "sonar.coverage.jacoco.xmlReportPaths", "app/build/reports/coverage/debug/report.xml"
         //property "tsonar.junit.reportPaths", "C:\\Users\\Daniel\\Documents\\GitHub\\calidad-tetris\\test-results\\connected"
     }
@@ -58,22 +58,18 @@ task gitBranch() {
 }
 
 task gitAdd(type: Exec){
-	description 'Adds the modified elements'
+    description 'Adds the modified elements'
     commandLine "git", "add"
 }
 
 task gitCommit(type: Exec) {
-description 'Commit elements that wasnt in the Project before'
-commandLine "git", "commit"
+    description 'Commit elements that wasnt in the Project before'
+    commandLine "git", "commit"
 
 }
 
 
 task gitPush(type: Exec) {
-	description 'Push elements'
-	commandLine "git", "push"
+    description 'Push elements'
+    commandLine "git", "push"
 }
-
-
-
-

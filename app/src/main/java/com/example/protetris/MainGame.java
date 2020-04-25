@@ -8,7 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import java.util.List;
 import java.util.Timer;
@@ -36,6 +38,11 @@ public class MainGame extends View implements View.OnClickListener {
     private int numColor;
     private int combo;
 
+    private RelativeLayout nextPiece;
+    private TextView changePieceIndicator;
+    private boolean canChangePiece;
+
+
     public MainGame(Context context, UpcomingPiece upcomingPiece, MainBoard mainBoard,int numColor) {
         super(context);
         this.timer = new Timer();
@@ -58,13 +65,23 @@ public class MainGame extends View implements View.OnClickListener {
         this.leftButton = proTetris.getLeftButton();
         this.rightButton = proTetris.getRightButton();
         this.downButton = proTetris.getDownButton();
+        this.nextPiece = proTetris.getNextPiece();
+        this.changePieceIndicator = proTetris.getChangePieceIndicator();
+
         this.rotateButton.setOnClickListener(this);
         this.leftButton.setOnClickListener(this);
         this.rightButton.setOnClickListener(this);
         this.downButton.setOnClickListener(this);
+        this.nextPiece.setOnClickListener(this);
+
+        this.canChangePiece = false;
+        this.changePieceIndicator.setBackgroundColor(Color.RED);
+
         this.numColor=numColor;
+
         startGame();
     }
+
     public void startGame() {
         timer.schedule(new TimerTask() {
             @Override
@@ -91,6 +108,11 @@ public class MainGame extends View implements View.OnClickListener {
                                                 combo = rowsRemoved;
                                                 actualPoints.setText(Integer.toString(score));
                                                 actualCombo.setText("X" + combo);
+
+                                                if(score%60 == 0){
+                                                    canChangePiece = Boolean.TRUE;
+                                                    changePieceIndicator.setBackgroundColor(Color.GREEN);
+                                                }
                                             }
 
                                             Piece actualPiece = mainBoard.getActualPiece();
@@ -152,6 +174,7 @@ public class MainGame extends View implements View.OnClickListener {
                 }
 
                 while (true) {
+
                     if (!proTetris.getStop()) {
                         if (mainBoard.moveOneDown(randomPiece, false)) {
                             try {
@@ -186,6 +209,7 @@ public class MainGame extends View implements View.OnClickListener {
                 }
             }
         }).start();
+
         actualPoints.setText(Integer.toString(score));
         actualCombo.setText("X"+combo);
     }
@@ -271,8 +295,25 @@ public class MainGame extends View implements View.OnClickListener {
                     }
                     invalidate();
                     break;
+                case R.id.pieceView:
+                    this.changeNextPiece();
+                    break;
             }
         }
+    }
+
+    /*The function receives the variable for make the testing easier*/
+
+    public void changeNextPiece(){
+
+        this.mainBoard.changeNextPiece(this.canChangePiece);
+        this.canChangePiece = Boolean.FALSE;
+        this.changePieceIndicator.setBackgroundColor(Color.RED);
+
+        upcomingPiece.setColor(numColor);
+        upcomingPiece.invalidate();
+
+
     }
 
     public boolean gameOver() throws InterruptedException {

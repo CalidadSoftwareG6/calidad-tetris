@@ -2,6 +2,7 @@ package com.example.protetris;
 
 
 import android.graphics.Color;
+import android.view.View;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -366,5 +367,14 @@ public class MainBoard {
             }
         }
         return firstRowsRandom;
+    }
+
+    public void changeNextPiece(boolean check){
+        if(check && this.pieces.size() == 2){
+
+            this.pieces.remove(1);
+            this.pieces.add(1,new Piece((int) (Math.random() * 7) + 1));
+
+        }
     }
 }
