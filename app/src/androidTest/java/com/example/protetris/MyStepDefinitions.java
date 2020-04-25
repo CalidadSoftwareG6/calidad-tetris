@@ -1,5 +1,6 @@
 package com.example.protetris;
 
+import cucumber.api.CucumberOptions;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.But;
 import cucumber.api.java.en.Given;
@@ -8,10 +9,14 @@ import cucumber.api.java.en.Then;
 import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
+@CucumberOptions(glue = "com.example.protetris.features.step_definitions", plugin = {"html/report.html"}, tags = {"~@wip"}, features = {"com.example.protetris.features"})
 @RunWith(Cucumber.class)
-public class MyStepDefinitions {
+public class MyStepDefinitions extends cucumber.api.android.CucumberAndroidJUnitRunner{
 
-    @Given("^un jugador ha hecho una partida de {int} puntos.$")
+
+
+
+    /*@Given("^un jugador ha hecho una partida de {int} puntos.$")
     public void un_jugador_ha_hecho_una_partida_de_something_puntos(String strArg1) throws Throwable {
         throw new PendingException();
     }
@@ -24,11 +29,11 @@ public class MyStepDefinitions {
     @Then("^el jugador aparece en primera posicion con \"([^\"]*)\" puntos.$")
     public void el_jugador_aparece_en_primera_posicion_con_something_puntos(String strArg1) throws Throwable {
         throw new PendingException();
-    }
+    }*/
 
     /**************************************************/
 
-    @Given("^se escucha una cancion \"([^\"]*)\" mientras juego una partida$")
+    /*@Given("^se escucha una cancion \"([^\"]*)\" mientras juego una partida$")
     public void se_escucha_una_cancion_something_mientras_juego_una_partida(String strArg1) throws Throwable {
         throw new PendingException();
     }
@@ -46,11 +51,11 @@ public class MyStepDefinitions {
     @But("^la cancion que suene debe ser diferente a la que se ha cambiado \"([^\"]*)\"$")
     public void la_cancion_que_suene_debe_ser_diferente_a_la_que_se_ha_cambiado_something(String strArg1) throws Throwable {
         throw new PendingException();
-    }
+    }*/
 
     /******************************************************/
 
-    @Given("^partida perdida \"([^\"]*)\"$")
+    /*@Given("^partida perdida \"([^\"]*)\"$")
     public void partida_perdida_something(String strArg1) throws Throwable {
         throw new PendingException();
     }
@@ -68,11 +73,11 @@ public class MyStepDefinitions {
     @Then("^la musica \"([^\"]*)\"$")
     public void la_musica_something(String strArg1) throws Throwable {
         throw new PendingException();
-    }
+    }*/
 
     /******************************************************/
 
-    @Given("^la musica esta apagada \"([^\"]*)\"$")
+    /*@Given("^la musica esta apagada \"([^\"]*)\"$")
     public void la_musica_esta_apagada_something(String strArg1) throws Throwable {
         throw new PendingException();
     }
@@ -100,11 +105,11 @@ public class MyStepDefinitions {
     @Then("^la musica no se escuchara \"([^\"]*)\"$")
     public void la_musica_no_se_escuchara_something(String strArg1) throws Throwable {
         throw new PendingException();
-    }
+    }*/
 
     /***********************************************************/
 
-    @Given("^el jugador selecciona el modo de juego normal \"([^\"]*)\"$")
+    /*@Given("^el jugador selecciona el modo de juego normal \"([^\"]*)\"$")
     public void el_jugador_selecciona_el_modo_de_juego_normal_something(String strArg1) throws Throwable {
         throw new PendingException();
     }
@@ -122,6 +127,6 @@ public class MyStepDefinitions {
     @Then("^la velocidad de caida de la pieza es de \"([^\"]*)\" milisegundos$")
     public void la_velocidad_de_caida_de_la_pieza_es_de_something_milisegundos(String strArg1) throws Throwable {
         throw new PendingException();
-    }
+    }*/
 
 }
