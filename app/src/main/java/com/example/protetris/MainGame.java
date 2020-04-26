@@ -314,8 +314,6 @@ public class MainGame extends View implements View.OnClickListener {
 
         upcomingPiece.setColor(numColor);
         upcomingPiece.invalidate();
-
-
     }
 
     public boolean gameOver() throws InterruptedException {
