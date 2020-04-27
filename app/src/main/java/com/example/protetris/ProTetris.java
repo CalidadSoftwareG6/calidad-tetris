@@ -113,15 +113,6 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
                 }
             }
         });
-
-        this.changeSong.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                media.stop();
-                media.start();
-            }
-        });
     }
 
 

@@ -1,20 +1,14 @@
 package com.example.protetris;
 
-import android.view.View;
-import android.widget.RelativeLayout;
-
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.*;
 
 public class MainGameTest {
 
     MainBoard mainBoard;
     Boolean canChangePiece;
-
 
     /*The functionality works when the user touch the next piece view and he has deleted 2 files of the tetris(that means tha has earn 60 points)*/
 
@@ -53,7 +47,7 @@ public class MainGameTest {
 
 
     /*We don´t call these functions because is an event method*/
-    @Test
+    /*@Test
     public void noUseButtonWithThePointsRequired(){
 
         this.mainBoard = new MainBoard();
@@ -78,6 +72,6 @@ public class MainGameTest {
         pieces.add(mainBoard.getNextPiece());
 
         assertEquals(pieces.get(1),mainBoard.getNextPiece());
-    }
+    }*/
 
 }
