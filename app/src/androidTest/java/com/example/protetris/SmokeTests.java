@@ -7,13 +7,8 @@ import cucumber.api.java.en.When;
 public class SmokeTests {
 
 
-
-
-
-
 //Feature 1
-
-
+    
     @Given("^Un jugador ha hecho una partida$")
     public void Un_jugador_ha_hecho_una_partida()throws Throwable {
         System.out.println("partida empezada");
@@ -32,8 +27,6 @@ public class SmokeTests {
     }
 
 //Feature2
-
-
 
     @Given("^Se escucha una cancion$")
     public void Se_escucha_una_cancion()throws Throwable {
