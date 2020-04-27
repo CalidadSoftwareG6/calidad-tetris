@@ -3,32 +3,31 @@ package com.example.protetris;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class SmokeTests {
-
-
-
-
-
-
+    private MainActivity mainActivity = mock(MainActivity.class);
+    private Tablero tablero = mock(MainBoard.class);
+    private Boolean Answer;
 //Feature 1
 
 
     @Given("^Un jugador ha hecho una partida$")
     public void Un_jugador_ha_hecho_una_partida()throws Throwable {
-        System.out.println("partida empezada");
+        mainActivity.startGame(MainGame);
+    }
 
     }
     @When("^El jugador le da a enviar los datos al ranking$")
-    public void El_jugador_le_da_a_envair_los_datos_al_ranking()throws Throwable{
-        System.out.println("se envian los datos al ranking");
+    public void El_jugador_le_da_a_enviar_los_datos_al_ranking()throws Throwable{
+        mainActivity.ranking(MainGame);
 
     }
 
     @Then("^El jugador aparece en primera posicion con 0 puntos$")
     public void El_jugador_aparece_en_primera_posicion_con_0_puntos()throws Throwable{
-        System.out.println("El jugador aparece en primera posicion");
-
+        GameOver.loadScores();
     }
 
 //Feature2
@@ -37,36 +36,35 @@ public class SmokeTests {
 
     @Given("^Se escucha una cancion$")
     public void Se_escucha_una_cancion()throws Throwable {
-        System.out.println("Se escucha una cancion");
+        mock.musicEnabled = true;
 
     }
     @When("^Pulso el boton de cambiar cancion$")
     public void Pulso_el_boton_de_cambiar_cancion()throws Throwable{
-        System.out.println("se pulso el boton");
-
-    }
-
+    Answer = music.changeSong;
+ }
     @Then("^La cancion cambia$")
     public void La_cancion_cambia()throws Throwable{
-        System.out.println("Se escucha la musica");
+        assertEquals(true, Answer);
+    }
 
     }
 
 //Feature 3
     @Given("^Partida perdida 1 $")
     public void Partida_perdida_1()throws Throwable {
-        System.out.println("partida perdida");
+        GameOver.onActivityResult();
 
     }
     @When("^Se abre el ranking$")
     public void Se_abre_el_ranking()throws Throwable{
-        System.out.println("se abre el ranking");
+        mainActivity.ranking(MainGame);
 
     }
 
     @Then("^La musica 1$")
     public void La_musica_1()throws Throwable{
-        System.out.println("Se escucha la musica");
+        mock.musicEnabled = true;
 
     }
 
