@@ -6,7 +6,7 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = {features = "src/androidTest/java/com/example/protetris/features"})
+@CucumberOptions(features = {"classpath:features"})
 
 public class SmokeTestsRunner {
 
